@@ -46,4 +46,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Pong-Game-APK
-          path: "**/build/outputs/apk/**/*.apk"
+          path: "**/*.a*"
