@@ -28,6 +28,7 @@ jobs:
       - name: Inject Game Logic
         run: |
           mkdir -p app/jni/src
+          rm -rf app/jni/src/*
           cp main.cpp app/jni/src/main.cpp
 
       - name: Build Standalone APK
