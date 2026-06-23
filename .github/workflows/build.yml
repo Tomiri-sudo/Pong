@@ -19,7 +19,7 @@ jobs:
 
       - name: Fetch Pure Native SDL Framework
         run: |
-          git clone --depth 1 https://github.com/libsdl-org/SDL.git sdl2-source
+          git clone --branch SDL2 --depth 1 https://github.com/libsdl-org/SDL.git sdl2-source
           mkdir -p app/src/main/jni
           cp -r sdl2-source/android-project/* .
           cp -r sdl2-source app/src/main/jni/SDL
