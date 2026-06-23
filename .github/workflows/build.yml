@@ -30,6 +30,9 @@ jobs:
           mkdir -p app/jni/src
           rm -rf app/jni/src/*
           cp main.cpp app/jni/src/main.cpp
+          
+          # Remove duplicate source files causing the Java compiler to choke
+          rm -f app/src/main/java/org/libsdl/app/SDLInputConnection.java
 
       - name: Build Standalone APK
         run: |
