@@ -37,7 +37,8 @@ jobs:
       - name: Build Standalone APK
         run: |
           chmod +x gradlew
-          ./gradlew assembleDebug -Pandroid.mkArgs="APP_ALLOW_MISSING_DEPS=true"
+          ./gradlew assembleDebug -Pandroid.injected.build.abi="arm64-v8a,armeabi-v7a"
+
 
       - name: Upload Finished Artifact
         uses: actions/upload-artifact@v4
