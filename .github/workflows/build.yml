@@ -20,15 +20,15 @@ jobs:
       - name: Fetch Pure Native SDL Framework
         run: |
           git clone --branch SDL2 --depth 1 https://github.com/libsdl-org/SDL.git sdl2-source
-          mkdir -p app/src/main/jni
+          mkdir -p app/jni
           cp -r sdl2-source/android-project/* .
-          cp -r sdl2-source app/src/main/jni/SDL
+          cp -r sdl2-source app/jni/sdl
           rm -rf sdl2-source
 
       - name: Inject Game Logic
         run: |
-          mkdir -p app/src/main/jni/src
-          cp main.cpp app/src/main/jni/src/main.cpp
+          mkdir -p app/jni/src
+          cp main.cpp app/jni/src/main.cpp
 
       - name: Build Standalone APK
         run: |
