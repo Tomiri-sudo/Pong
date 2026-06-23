@@ -17,21 +17,24 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Fetch Pure Native SDL Framework
+      - name: Fetch Pure Native SDL2 Framework
         run: |
-          git clone --branch SDL2 --depth 1 https://github.com/libsdl-org/SDL.git sdl2-source
+          # Download a clean tarball zip to keep git index completely untracked
+          curl -L https://github.com/libsdl-org/SDL/archive/refs/heads/SDL2.tar.gz -o sdl2.tar.gz
+          tar -xzf sdl2.tar.gz
+          mv SDL-SDL2 sdl2-source
+          
+          # Map standard compilation directories
           mkdir -p app/jni
           cp -r sdl2-source/android-project/* .
           cp -r sdl2-source app/jni/sdl
-          rm -rf sdl2-source
+          rm -rf sdl2-source sdl2.tar.gz
 
       - name: Inject Game Logic
         run: |
           mkdir -p app/jni/src
           rm -rf app/jni/src/*
           cp main.cpp app/jni/src/main.cpp
-          
-          # Remove duplicate source files causing the Java compiler to choke
           rm -f app/src/main/java/org/libsdl/app/SDLInputConnection.java
 
       - name: Build Standalone APK
@@ -39,10 +42,8 @@ jobs:
           chmod +x gradlew
           ./gradlew assembleDebug -Pandroid.injected.build.abi="arm64-v8a,armeabi-v7a"
 
-
       - name: Upload Finished Artifact
         uses: actions/upload-artifact@v4
         with:
           name: Pong-Game-APK
           path: "**/build/outputs/apk/**/*.apk"
-
